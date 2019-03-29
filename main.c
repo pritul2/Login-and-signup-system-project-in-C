@@ -12,7 +12,7 @@ void reg(void);
 int main()
 {
 	clrscr();
-	//outlook//
+	//Menu//
 	printf("\n\n\n\n\n\t\t\t\tWELCOME TO MY WEBSITE");
 	printf("\n\t\t\t\t=====================");
 	printf("\n\n\n\n\t\t\tPress Enter to proceed...!!");
@@ -40,9 +40,9 @@ int main()
 }
 void reg()
 {
-    FILE *fp;
-    char c,checker[30]; int z=0;
-    fp=fopen("Web_reg.txt","ab+");
+    FILE *fp;//fp is the file pointer//
+    char c,checker[30];//c is temporary variable, checker is the input string//
+    fp=fopen("Web_reg.txt","a+");//File opened for appending//
     printf("\n\n\t\t\t\tWELCOME TO REGISTER ZONE");
     printf("\n\t\t\t\t^^^^^^^^^^^^^^^^^^^^^^^^");
     for(i=0;i<100;i++)
@@ -52,6 +52,7 @@ void reg()
       while(!feof(fp))
       {
           fread(&w[i],sizeof(w[i]),1,fp);
+	  //checking whether user exist//
           if(strcmp(checker,w[i].name)==0)
 	  {
             printf("\n\n\t\t\tUSERNAME ALREDY EXISTS");
@@ -65,7 +66,7 @@ void reg()
           }
       }
       printf("\n\n\t\t\t\t  DESIRED PASSWORD: ");
-      while((c=getch())!=13)
+      while((c=getch())!=13)//13 refers to carriage return//
       {
           w[i].pass[z++]=c;
           printf("%c",'*');
@@ -97,9 +98,10 @@ void reg()
   void login()
     {
       FILE *fp;
-      char c,name[30],pass[30]; int z=0;
-      int checku,checkp;
-      fp=fopen("Web_reg.txt","rb");
+      char c,name[30],pass[30];
+      int z=0;
+      int checku,checkp;//checkuser name and check password//
+      fp=fopen("Web_reg.txt","r");//opening in read mode//
       printf("\n\n\t\t\t\tWELCOME TO LOG IN ZONE");
       printf("\n\t\t\t\t^^^^^^^^^^^^^^^^^^^^^^");
       for(i=0;i<1000;i++)
@@ -118,6 +120,8 @@ void reg()
         fread(&w[i],sizeof(w[i]),1,fp);
           checku=strcmp(name,w[i].name);
           checkp=strcmp(pass,w[i].pass);
+	  if(checku == 0 && checkp == 0) break;
+      	}
           if(checku==0&&checkp==0)
           {
             clrscr();
@@ -132,15 +136,13 @@ void reg()
             if(getch()=='y'||getch()=='Y')
               login();
           }
-        else if(checku!=0)
+        else
           {
             printf("\n\n\n\t\t\tYou are not a Registered User\n \t\t\tPress enter to register yourself");
             if(getch()==13)
             clrscr();
             reg();
           }
-        }
-        break;
       }
       getch();
     }
