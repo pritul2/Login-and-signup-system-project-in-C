@@ -18,7 +18,7 @@ int main()
 	printf("\n\n\n\n\t\t\tPress Enter to proceed...!!");
 	if(getch()==13)
 	clrscr();
-	XY:
+	XY: //Label for the goto//
 	printf("\n\n\n\t\t\t1. LOGIN\t\t2. REGISTER");
 	printf("\n\n\n\t\t\t\tENTER YOUR CHOICE: ");
 	scanf("%d",&n);
